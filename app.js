@@ -1,19 +1,17 @@
 const express = require('express')
 const app = express()
+const tasks = require('./routes/task')
 
-const people = require('./routes/people.js')
-const login = require('./routes/auth.js')
-
-//static assets
-app.use(express.static('./methods-public'))
-//parse form data
-app.use(express.urlencoded({ extended: false }))
-// parse json data
+//middleware
 app.use(express.json())
 
-app.use('/api/people', people)
-app.use('/login', login)
-
-app.listen(5000, () => {
-  console.log('server listening on port 5000')
+//routes
+app.get('/hello', (req, res) => {
+  res.send('Task manager App')
 })
+
+app.use('/api/v1/tasks', tasks)
+
+const port = 3000
+
+app.listen(port, console.log(`server is listening on port ${port}`))
