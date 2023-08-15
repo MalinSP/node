@@ -6,7 +6,11 @@ const getAllProductsStatic = async (req, res) => {
   //   name: { $regex: search, $options: 'i' },
   // })
   //const products = await Product.find({}).sort('-name price')
-  const products = await Product.find({}).select('name price')
+  const products = await Product.find({})
+    .sort('name')
+    .select('name price')
+    .limit(10)
+    .skip(1)
   res.status(200).json({ products, amount: products.length })
 }
 
